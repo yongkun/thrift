@@ -23,6 +23,8 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketException;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,8 +74,8 @@ public class TSocket extends TIOStreamTransport {
 
     if (isOpen()) {
       try {
-        inputStream_ = socket_.getInputStream();
-        outputStream_ = socket_.getOutputStream();
+        inputStream_ = new BufferedInputStream(socket_.getInputStream());
+        outputStream_ = new BufferedOutputStream(socket_.getOutputStream());
       } catch (IOException iox) {
         close();
         throw new TTransportException(TTransportException.NOT_OPEN, iox);
@@ -176,8 +178,8 @@ public class TSocket extends TIOStreamTransport {
 
     try {
       socket_.connect(new InetSocketAddress(host_, port_), timeout_);
-      inputStream_ = socket_.getInputStream();
-      outputStream_ = socket_.getOutputStream();
+      inputStream_ = new BufferedInputStream(socket_.getInputStream());
+      outputStream_ = new BufferedOutputStream(socket_.getOutputStream());
     } catch (IOException iox) {
       close();
       throw new TTransportException(TTransportException.NOT_OPEN, iox);
