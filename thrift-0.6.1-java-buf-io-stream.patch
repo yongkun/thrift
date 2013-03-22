@@ -1,0 +1,16 @@
+diff -r src//org/apache/thrift/transport/TSocket.java ../../../thrift-0.6.0-wyk/lib/java/src//org/apache/thrift/transport/TSocket.java
+25a26,27
+> import java.io.BufferedInputStream;
+> import java.io.BufferedOutputStream;
+75,76c77,78
+<         inputStream_ = socket_.getInputStream();
+<         outputStream_ = socket_.getOutputStream();
+---
+>         inputStream_ = new BufferedInputStream(socket_.getInputStream());
+>         outputStream_ = new BufferedOutputStream(socket_.getOutputStream());
+179,180c181,182
+<       inputStream_ = socket_.getInputStream();
+<       outputStream_ = socket_.getOutputStream();
+---
+>       inputStream_ = new BufferedInputStream(socket_.getInputStream());
+>       outputStream_ = new BufferedOutputStream(socket_.getOutputStream());
