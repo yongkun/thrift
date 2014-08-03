@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <title>Thrift by yongkun</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Thrift</h1>
+        <h2>I created two release (thrift-0.6.2 and thrift-0.7.1) to fix some issues in early version (0.6.x, 0.7.x) which is used for Apache Flume. These issues have been fixed in later versions (0.8.x+) of original repo. Main change is the buffered input/output stream to improve the performance for  on 0.6.x &amp; 0.7.x, change on 0.7.x also includes &#39;oneway&#39; fix (THRIFT-1447). Two new versions are created: thrift-0.6.2 and thrift-0.7.1.</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/yongkun/thrift/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/yongkun/thrift/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/yongkun/thrift" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <p>Apache Thrift (an Apache Incubator project)</p>
+
+<p>Last Modified: 2009-Jan-30</p>
+
+<h1>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h1>
+
+<p>Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements. See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership. The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at</p>
+
+<p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+
+<p>Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied. See the License for the
+specific language governing permissions and limitations
+under the License.</p>
+
+<h1>
+<a name="introduction" class="anchor" href="#introduction"><span class="octicon octicon-link"></span></a>Introduction</h1>
+
+<p>Thrift is a lightweight, language-independent software stack with an
+associated code generation mechanism for RPC. Thrift provides clean
+abstractions for data transport, data serialization, and application
+level processing. The code generation system takes a simple definition
+language as its input and generates code across programming languages that
+uses the abstracted stack to build interoperable RPC clients and servers.</p>
+
+<p>Thrift is specifically designed to support non-atomic version changes
+across client and server code.</p>
+
+<p>For more details on Thrift's design and implementation, take a gander at
+the Thrift whitepaper included in this distribution or at the README files
+in your particular subdirectory of interest.</p>
+
+<h1>
+<a name="heirarchy" class="anchor" href="#heirarchy"><span class="octicon octicon-link"></span></a>Heirarchy</h1>
+
+<p>thrift/</p>
+
+<p>compiler/
+    Contains the Thrift compiler, implemented in C++.</p>
+
+<p>lib/
+    Contains the Thrift software library implementation, subdivided by
+    language of implementation.</p>
+
+<pre><code>cpp/
+java/
+php/
+py/
+rb/
+</code></pre>
+
+<p>test/</p>
+
+<pre><code>Contains sample Thrift files and test code across the target programming
+languages.
+</code></pre>
+
+<p>tutorial/</p>
+
+<pre><code>Contains a basic tutorial that will teach you how to develop software
+using Thrift.
+</code></pre>
+
+<h1>
+<a name="requirements" class="anchor" href="#requirements"><span class="octicon octicon-link"></span></a>Requirements</h1>
+
+<p>See <a href="http://wiki.apache.org/thrift/ThriftRequirements">http://wiki.apache.org/thrift/ThriftRequirements</a> for
+an up-to-date list of build requirements.</p>
+
+<h1>
+<a name="resources" class="anchor" href="#resources"><span class="octicon octicon-link"></span></a>Resources</h1>
+
+<p>More information about Thrift can be obtained on the Thrift webpage at:</p>
+
+<pre><code> http://incubator.apache.org/thrift
+</code></pre>
+
+<h1>
+<a name="acknowledgments" class="anchor" href="#acknowledgments"><span class="octicon octicon-link"></span></a>Acknowledgments</h1>
+
+<p>Thrift was inspired by pillar, a lightweight RPC tool written by Adam D'Angelo,
+and also by Google's protocol buffers.</p>
+
+<h1>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h1>
+
+<p>If you are building from the first time out of the source repository, you will
+need to generate the configure scripts.  (This is not necessary if you
+downloaded a tarball.)  From the top directory, do:</p>
+
+<pre><code>./bootstrap.sh
+</code></pre>
+
+<p>Once the configure scripts are generated, thrift can be configured.
+From the top directory, do:</p>
+
+<pre><code>./configure
+</code></pre>
+
+<p>You may need to specify the location of the boost files explicitly.
+If you installed boost in /usr/local, you would run configure as follows:</p>
+
+<pre><code>./configure --with-boost=/usr/local
+</code></pre>
+
+<p>Note that by default the thrift C++ library is typically built with debugging
+symbols included. If you want to customize these options you should use the
+CXXFLAGS option in configure, as such:</p>
+
+<pre><code>    ./configure CXXFLAGS='-g -O2'
+    ./configure CFLAGS='-g -O2'
+    ./configure CPPFLAGS='-DDEBUG_MY_FEATURE'
+</code></pre>
+
+<p>Run ./configure --help to see other configuration options</p>
+
+<p>Please be aware that the Python library will ignore the --prefix option
+and just install wherever Python's distutils puts it (usually along
+the lines of /usr/lib/pythonX.Y/site-packages/).  If you need to control
+where the Python modules are installed, set the PY_PREFIX variable.
+(DESTDIR is respected for Python and C++.)</p>
+
+<p>Make thrift:</p>
+
+<pre><code>make
+</code></pre>
+
+<p>From the top directory, become superuser and do:</p>
+
+<pre><code>make install
+</code></pre>
+
+<p>Note that some language packages must be installed manually using build tools
+better suited to those languages (at the time of this writing, this applies
+to Java, Ruby, PHP).</p>
+
+<p>Look for the README file in the lib// folder for more details on the
+installation of each language library package.</p>
+      </section>
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-53476203-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
